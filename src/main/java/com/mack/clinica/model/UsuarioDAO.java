@@ -1,14 +1,9 @@
 package com.mack.clinica.model;
 
 import com.mack.clinica.util.DatabaseConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.mack.clinica.model.Usuario;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UsuarioDAO {
 

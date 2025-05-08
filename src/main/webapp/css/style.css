@@ -149,3 +149,35 @@ form button:hover {
     text-align: center;    /* Também centraliza o texto */
 }
 
+ .agenda-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 20px;
+     font-family: Arial, sans-serif;
+     font-size: 15px;
+     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+ }
+
+.agenda-table th,
+.agenda-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.agenda-table th {
+    background-color: #2a7ae2;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.agenda-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.agenda-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
