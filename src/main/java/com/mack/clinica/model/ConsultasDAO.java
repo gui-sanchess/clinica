@@ -10,11 +10,32 @@ import java.util.List;
 
 public class ConsultasDAO {
 
+    public void excluirConsulta(int idConsulta, String realPathBase) {
+        String sql = "DELETE FROM consultas WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idConsulta);
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                System.err.println("Nenhuma consulta encontrada com o ID: " + idConsulta);
+            } else {
+                System.out.println("Consulta ID " + idConsulta + " excluída com sucesso.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir consulta:");
+            e.printStackTrace();
+        }
+    }
+
     public List<Consulta> listarConsultas(int id, String realPathBase) {
         List<Consulta> consultas = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "SELECT c.id, c.paciente_id, c.profissional_id, c.data_hora, c.status, c.observacoes, u.nome AS nome_medico FROM consultas c JOIN usuarios u ON c.profissional_id = u.id WHERE c.paciente_id = ?";
+            String sql = "SELECT c.id, c.paciente_id, c.profissional_id, c.data_hora, c.status, c.observacoes, u.nome AS nome_medico FROM consultas c JOIN usuarios u ON c.profissional_id = u.id WHERE c.paciente_id = ? ORDER BY data_hora ASC";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
 

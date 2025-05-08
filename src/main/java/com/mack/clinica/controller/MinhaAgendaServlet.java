@@ -31,4 +31,17 @@ public class MinhaAgendaServlet extends HttpServlet {
         // Encaminha para a página de minha agenda
         request.getRequestDispatcher("/minha_agenda.jsp").forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int idConsulta = Integer.parseInt(request.getParameter("idConsulta"));
+        String realPath = getServletContext().getRealPath("/");
+
+        ConsultasDAO consultaDAO = new ConsultasDAO();
+        consultaDAO.excluirConsulta(idConsulta, realPath);
+
+        response.sendRedirect("minhaAgenda");
+    }
 }

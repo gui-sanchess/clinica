@@ -177,7 +177,96 @@ form button:hover {
 }
 
 .agenda-table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     cursor: pointer;
 }
+.consulta-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    max-width: 600px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.consulta-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.consulta-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 1.4em;
+}
+
+.consulta-card p {
+    margin: 6px 0;
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* CONSULTA EXPIRADA - ACINZENTADA */
+.consulta-card.expirada {
+    background-color: #eeeeee;
+    color: #666;
+    border-left: 5px solid #bbb;
+    opacity: 0.95;
+}
+
+/* BOTÃO DE LIXEIRA */
+.botao-lixeira {
+    background: none;             /* remove fundo */
+    border: none;                 /* remove borda */
+    padding: 0;                   /* remove espaçamento */
+    margin-top: 10px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+/* Remove borda azul ao focar/clicar */
+.botao-lixeira:focus,
+.botao-lixeira:active {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Ícone de lixeira */
+.botao-lixeira i {
+    font-size: 1.3em;
+    color: #888;
+    transition: color 0.2s ease;
+    pointer-events: none;
+}
+
+/* Hover: ícone fica vermelho */
+.botao-lixeira:hover i {
+    color:#e74c3c;
+}
+
+/* ANIMAÇÃO DE REMOÇÃO */
+.consulta-removida {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    pointer-events: none;
+}
+
+/* CONTAINER CENTRALIZADO */
+.consultas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top:40px;
+}
