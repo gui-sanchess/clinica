@@ -48,4 +48,9 @@ public class Consulta {
 
     public String getHoraFormatada() { return horaFormatada; }
     public void setHoraFormatada(String horaFormatada) { this.horaFormatada = horaFormatada; }
+
+    public boolean isExpirada() {
+        return data_hora != null && data_hora.isBefore(LocalDateTime.now());
+    }
+
 }
