@@ -106,25 +106,33 @@ form button:hover {
 .button:hover, .logout-button:hover {
     background-color: #218838;
 }
-
 .navbar {
     background-color: #333;
-    overflow: hidden;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 20px;
+.nav-links {
+    display: flex;
+    gap: 170px; /* Espaçamento igual entre as opções — aumente ou diminua como quiser */
+}
+
+.nav-links a {
+    color: white;
     text-decoration: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.navbar a:hover {
-    background-color: #ddd;
+.nav-links a:hover {
+    background-color: white;
     color: black;
+    border-radius: 5px;
 }
+
 
 .success-message {
     text-align: center;
@@ -144,7 +152,7 @@ form button:hover {
 /* Estilo para o parágrafo principal */
 .content p {
     font-size: 18px;       /* Fonte um pouco maior */
-    margin: 20px 40px;     /* Espaço em cima/baixo e maior nas laterais */
+    margin: 170px 60px;     /* Espaço em cima/baixo e maior nas laterais */
     line-height: 1.6;      /* Altura da linha para melhor leitura */
     text-align: center;    /* Também centraliza o texto */
 }
@@ -203,10 +211,11 @@ form button:hover {
     margin-bottom: 10px;
     color: #2c3e50;
     font-size: 1.4em;
+
 }
 
 .consulta-card p {
-    margin: 6px 0;
+    margin: 4px 0;
     color: #555;
     font-size: 0.95em;
     line-height: 1.4;
@@ -222,44 +231,41 @@ form button:hover {
 
 /* BOTÃO DE LIXEIRA */
 .botao-lixeira {
-    background: none;             /* remove fundo */
-    border: none;                 /* remove borda */
-    padding: 0;                   /* remove espaçamento */
-    margin-top: 10px;
-    cursor: pointer;
-    outline: none;
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
-    transition: transform 0.2s ease;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 10px;
+    outline: none;
+    user-select: none;
 }
 
-/* Remove borda azul ao focar/clicar */
+/* Remove contorno azul ao focar */
 .botao-lixeira:focus,
 .botao-lixeira:active {
     outline: none;
-    box-shadow: none;
 }
 
-/* Ícone de lixeira */
+/* Ícone da lixeira */
 .botao-lixeira i {
-    font-size: 1.3em;
+    font-size: 1.2em;
     color: #888;
     transition: color 0.2s ease;
     pointer-events: none;
 }
 
-/* Hover: ícone fica vermelho */
+/* Hover: só o ícone muda */
 .botao-lixeira:hover i {
     color:#e74c3c;
 }
+/* Hover: só o ícone muda */
 
 /* ANIMAÇÃO DE REMOÇÃO */
 .consulta-removida {
     opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    pointer-events: none;
+    transform: translateX(40px) scale(0.97);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    pointer-events:none;
 }
 
 /* CONTAINER CENTRALIZADO */

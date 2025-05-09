@@ -30,7 +30,6 @@
 <!-- Conteúdo centralizado -->
 <div class="content">
     <h1>Minha Agenda</h1>
-    <form method="get" action="meuCadastro" class="form-container">
     <%
         List<Consulta> consultas = (List<Consulta>) request.getAttribute("consultas");
         LocalDateTime agora = LocalDateTime.now(ZoneId.systemDefault());
