@@ -22,7 +22,7 @@ public class MeuCadastroServlet extends HttpServlet {
         // Obtém o caminho real do projeto
         String realPathBase = request.getServletContext().getRealPath("/");
         // Instancia o DAO passando o caminho
-        UsuarioDAO dao = new UsuarioDAO();
+        UsuarioDAO dao = new UsuarioDAO(realPathBase);
         Integer id = (Integer) request.getSession().getAttribute("id");
 
         // Busca a lista o usuario
@@ -56,7 +56,7 @@ public class MeuCadastroServlet extends HttpServlet {
             // Conecta no banco
             String realPathBase = request.getServletContext().getRealPath("/");
 
-            UsuarioDAO dao = new UsuarioDAO();
+            UsuarioDAO dao = new UsuarioDAO(realPathBase);
 
             // Agenda a consulta
             boolean sucesso = dao.alterarUsuario(id,usuario.getNome(),usuario.getCpf(),usuario.getSenha(),usuario.getEmail(),usuario.getCelular(),realPathBase);

@@ -4,8 +4,15 @@ import com.mack.clinica.util.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO {
+
+    private String realPathBase;
+
+    public UsuarioDAO(String realPathBase) {
+        this.realPathBase = realPathBase;
+    }
 
     /**
      * Consulta o usuário pelo email e senha no banco.
@@ -94,4 +101,52 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    public List<Usuario> listarMedicos() {
+        List<Usuario> medicos = new ArrayList<>();
+        String sql = "SELECT * FROM usuarios WHERE tipo = 'medico'";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setCelular(rs.getString("celular"));
+                u.setCpf(rs.getString("cpf"));
+                u.setSenha(rs.getString("senha"));
+                medicos.add(u);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar médicos: " + e.getMessage());
+        }
+
+        return medicos;
+    }
+
+    public boolean inserirUsuario(Usuario usuario, String realPathBase) {
+        String sql = "INSERT INTO usuarios (nome, email, senha, cpf, celular, tipo) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getCpf());
+            stmt.setString(5, usuario.getCelular());
+            stmt.setString(6, usuario.getTipo());
+
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
