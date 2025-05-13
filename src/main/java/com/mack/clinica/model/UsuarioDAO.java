@@ -18,7 +18,6 @@ public class UsuarioDAO {
      * Consulta o usuário pelo email e senha no banco.
      * @param email Email do usuário.
      * @param senha Senha do usuário.
-     * @param realPathBase Caminho real da aplicação para localizar o banco.
      * @return Objeto Usuario encontrado ou null se não encontrado.
      */
     public static Usuario buscarUsuario(String email, String senha, String realPathBase) {
@@ -31,7 +30,6 @@ public class UsuarioDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Se encontrou o usuário, cria um objeto Usuario
                 Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
@@ -40,23 +38,23 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao buscar usuário no banco de dados.", e);
+            System.err.println("Erro ao buscar usuário: " + e.getMessage());
         }
         return null;
     }
 
-    public Usuario listarPaciente(int id, String realPathBase) {
+    /**
+     * Retorna os dados de um paciente pelo ID.
+     */
+    public Usuario listarPaciente(int id) {
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+            String sql = "SELECT * FROM usuarios WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
 
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase)){
-             String sql = "SELECT * FROM usuarios WHERE id = ?";
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             stmt.setInt(1, id);
-
-             ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
                 Usuario paciente = new Usuario();
                 paciente.setId(rs.getInt("id"));
                 paciente.setNome(rs.getString("nome"));
@@ -64,7 +62,6 @@ public class UsuarioDAO {
                 paciente.setCelular(rs.getString("celular"));
                 paciente.setCpf(rs.getString("cpf"));
                 paciente.setSenha(rs.getString("senha"));
-
                 return paciente;
             }
 
@@ -74,34 +71,31 @@ public class UsuarioDAO {
         return null;
     }
 
-
+    /**
+     * Atualiza os dados de um usuário existente.
+     */
     public boolean alterarUsuario(int id, String nome, String cpf, String senha, String email, String celular, String realPathBase) {
-
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "UPDATE usuarios set nome=?,email=?,cpf=?,celular=?,senha=? where id=?";
+            String sql = "UPDATE usuarios SET nome=?, email=?, cpf=?, celular=?, senha=? WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
-            System.out.println("nome: " + nome);
             stmt.setString(2, email);
-            System.out.println("email: " + email);
             stmt.setString(3, cpf);
-            System.out.println("cpf: " + cpf);
             stmt.setString(4, celular);
-            System.out.println("celular: " + celular);
-            stmt.setString(5, senha);
-            System.out.println("senha: " + senha);
+            stmt.setString(5, senha);  // ⚠️ considere usar hash no futuro
             stmt.setInt(6, id);
-            System.out.println("ID: " + id);
+
             int linhasAfetadas = stmt.executeUpdate();
-            System.out.println("Linhas afetadas: " + linhasAfetadas);
             return linhasAfetadas > 0;
         } catch (SQLException e) {
-            System.out.println("entrou aqui");
-            e.printStackTrace();
+            System.err.println("Erro ao atualizar usuário: " + e.getMessage());
             return false;
         }
     }
 
+    /**
+     * Retorna uma lista de todos os médicos cadastrados.
+     */
     public List<Usuario> listarMedicos() {
         List<Usuario> medicos = new ArrayList<>();
         String sql = "SELECT * FROM usuarios WHERE tipo = 'medico'";
@@ -127,6 +121,9 @@ public class UsuarioDAO {
         return medicos;
     }
 
+    /**
+     * Insere um novo usuário no banco.
+     */
     public boolean inserirUsuario(Usuario usuario, String realPathBase) {
         String sql = "INSERT INTO usuarios (nome, email, senha, cpf, celular, tipo) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -135,7 +132,7 @@ public class UsuarioDAO {
 
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getSenha());
+            stmt.setString(3, usuario.getSenha()); // ⚠️ usar hash é mais seguro
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getCelular());
             stmt.setString(6, usuario.getTipo());
@@ -144,9 +141,36 @@ public class UsuarioDAO {
             return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao inserir usuário: " + e.getMessage());
             return false;
         }
     }
 
+    /**
+     * Retorna uma lista de todos os pacientes cadastrados.
+     */
+    public List<Usuario> listarPacientes() {
+        List<Usuario> pacientes = new ArrayList<>();
+        String sql = "SELECT * FROM usuarios WHERE tipo = 'paciente'";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setCelular(rs.getString("celular"));
+                u.setCpf(rs.getString("cpf"));
+                u.setSenha(rs.getString("senha"));
+                pacientes.add(u);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar pacientes: " + e.getMessage());
+        }
+
+        return pacientes;
+    }
 }

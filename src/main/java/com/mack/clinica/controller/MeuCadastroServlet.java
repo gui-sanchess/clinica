@@ -26,7 +26,7 @@ public class MeuCadastroServlet extends HttpServlet {
         Integer id = (Integer) request.getSession().getAttribute("id");
 
         // Busca a lista o usuario
-        Usuario paciente = dao.listarPaciente(id, realPathBase);
+        Usuario paciente = dao.listarPaciente(id);
         // Atribui a lista no request para ser usada no JSP
         request.setAttribute("paciente", paciente);
         // Encaminha para a página de agendamento
