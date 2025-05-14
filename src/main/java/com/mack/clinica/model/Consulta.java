@@ -12,6 +12,7 @@ public class Consulta {
     private Usuario medico;
     private String dataFormatada;
     private String horaFormatada;
+    private Usuario paciente;
 
     // Getters e Setters
     public int getId_consulta() {
@@ -52,5 +53,8 @@ public class Consulta {
     public boolean isExpirada() {
         return data_hora != null && data_hora.isBefore(LocalDateTime.now());
     }
+
+    public Usuario getPaciente() {return paciente;}
+    public void setPaciente(Usuario paciente) {this.paciente = paciente;}
 
 }

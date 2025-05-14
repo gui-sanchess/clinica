@@ -276,3 +276,12 @@ form button:hover {
     gap: 16px;
     margin-top:40px;
 }
+
+.filter-form select {
+    width: 200px;
+    height: 120px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+}
+

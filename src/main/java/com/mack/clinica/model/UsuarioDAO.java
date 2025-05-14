@@ -3,6 +3,8 @@ package com.mack.clinica.model;
 import com.mack.clinica.util.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,4 +175,5 @@ public class UsuarioDAO {
 
         return pacientes;
     }
+
 }

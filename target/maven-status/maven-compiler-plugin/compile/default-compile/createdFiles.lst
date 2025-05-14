@@ -2,6 +2,7 @@ com\mack\clinica\controller\MinhaAgendaServlet.class
 com\mack\clinica\controller\AdminDashboardServlet.class
 com\mack\clinica\controller\LoginServlet.class
 com\mack\clinica\controller\PacienteDashboardServlet.class
+com\mack\clinica\controller\ConsultarAgendaServlet.class
 com\mack\clinica\controller\LogoutServlet.class
 com\mack\clinica\controller\LoginActionServlet.class
 com\mack\clinica\controller\CadastroMedicosServlet.class
