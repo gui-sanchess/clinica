@@ -73,6 +73,26 @@ public class UsuarioDAO {
         return null;
     }
 
+    public void excluirUsuario(int id) {
+        String sql = "DELETE FROM usuarios WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                System.err.println("Nenhum usuário encontrado com o ID: " + id);
+            } else {
+                System.out.println("Usuário ID " + id + " excluído com sucesso.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir usuário:");
+            e.printStackTrace();
+        }
+    }
     /**
      * Atualiza os dados de um usuário existente.
      */
@@ -134,7 +154,7 @@ public class UsuarioDAO {
 
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getSenha()); // ⚠️ usar hash é mais seguro
+            stmt.setString(3, usuario.getSenha());
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getCelular());
             stmt.setString(6, usuario.getTipo());

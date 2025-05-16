@@ -1,4 +1,6 @@
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\model\UsuarioDAO.java
+C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\model\Prontuario.java
+C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\model\ProntuariosDAO.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\model\AgendarConsultaDAO.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\PacienteDashboardServlet.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\LogoutServlet.java
@@ -13,5 +15,6 @@ C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\Co
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\LoginServlet.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\model\Consulta.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\CadastroPacientesServlet.java
+C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\FichaClinicaServlet.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\model\Usuario.java
 C:\Users\Dedé\IdeaProjects\clinica\src\main\java\com\mack\clinica\controller\AgendarConsultaServlet.java
