@@ -18,9 +18,7 @@ public class CadastroPacientesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String realPathBase = request.getServletContext().getRealPath("/");
-
         UsuarioDAO dao = new UsuarioDAO(realPathBase);
         List<Usuario> pacientes = dao.listarPacientes();
 
@@ -31,11 +29,16 @@ public class CadastroPacientesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String method = request.getParameter("_method");
+
+        if ("DELETE".equalsIgnoreCase(method)) {
+            doDelete(request, response); // redireciona para doDelete se for delete
+            return;
+        }
 
         String realPathBase = request.getServletContext().getRealPath("/");
         UsuarioDAO dao = new UsuarioDAO(realPathBase);
-
-        String idStr = request.getParameter("pacienteId"); // campo oculto do formulário para edição
+        String idStr = request.getParameter("PacienteId");
         boolean sucesso = false;
 
         try {
@@ -47,23 +50,16 @@ public class CadastroPacientesServlet extends HttpServlet {
             paciente.setCelular(request.getParameter("userFone"));
 
             if (idStr != null && !idStr.isEmpty()) {
-                // Editar paciente existente
                 int id = Integer.parseInt(idStr);
-                sucesso = dao.alterarUsuario(id,
-                        paciente.getNome(),
-                        paciente.getCpf(),
-                        paciente.getSenha(),
-                        paciente.getEmail(),
-                        paciente.getCelular(),
-                        realPathBase);
+                sucesso = dao.alterarUsuario(id, paciente.getNome(), paciente.getCpf(), paciente.getSenha(),
+                        paciente.getEmail(), paciente.getCelular(), realPathBase);
             } else {
-                // Inserir novo paciente
                 paciente.setTipo("paciente");
                 sucesso = dao.inserirUsuario(paciente, realPathBase);
             }
 
             if (sucesso) {
-                response.sendRedirect("cadastroPacientes?sucesso=1");
+                response.sendRedirect("/mensagem_sucesso_consultar.jsp?sucesso=1");
             } else {
                 response.sendRedirect("cadastroPacientes?erro=1");
             }
@@ -71,6 +67,27 @@ public class CadastroPacientesServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("cadastroPacientes?erro=500");
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String idStr = request.getParameter("pacienteId");
+        String realPathBase = request.getServletContext().getRealPath("/");
+
+        if (idStr != null && !idStr.isEmpty()) {
+            try {
+                int id = Integer.parseInt(idStr);
+                UsuarioDAO dao = new UsuarioDAO(realPathBase);
+                dao.excluirUsuario(id);
+                response.sendRedirect("cadastroPacientes");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendRedirect("cadastroPacientes?erro=500");
+            }
+        } else {
+            response.sendRedirect("cadastroPacientes?erro=400");
         }
     }
 }

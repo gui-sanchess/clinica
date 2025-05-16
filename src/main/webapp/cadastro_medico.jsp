@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <title>Cadastro de Médicos</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
             background-color: #f4f4f4;
@@ -102,18 +104,27 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        .botao-lixeira {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+        .botao-lixeira:hover {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
-<!-- Navbar original já estilizada no CSS -->
 <div class="navbar">
     <div class="nav-links">
         <a href="admin_dashboard">Home</a>
         <a href="cadastroPacientes">Cadastro de Pacientes</a>
         <a href="cadastroMedicos">Cadastro de Médicos</a>
         <a href="consultarAgenda">Consultar Agenda</a>
-        <a href="#">Ficha Clínica</a>
+        <a href="fichaClinica">Ficha Clínica</a>
         <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
     </div>
 </div>
@@ -121,10 +132,8 @@
 <div class="content">
     <h1>Médicos Cadastrados</h1>
 
-    <!-- Botão de adicionar -->
     <button class="btn add-btn" onclick="abrirModalInserir()">+ Adicionar Médico</button>
 
-    <!-- Cards em duas colunas -->
     <div class="cards-container">
         <%
             List<Usuario> medicos = (List<Usuario>) request.getAttribute("medicos");
@@ -136,7 +145,16 @@
             <p><strong>Email:</strong> <%= medico.getEmail() %></p>
             <p><strong>CPF:</strong> <%= medico.getCpf() %></p>
             <p><strong>Celular:</strong> <%= medico.getCelular() %></p>
+
             <button class="btn" onclick="abrirModalEditar('<%= medico.getId() %>', '<%= medico.getNome() %>', '<%= medico.getEmail() %>', '<%= medico.getCpf() %>', '<%= medico.getCelular() %>')">Editar</button>
+
+            <form action="cadastroMedicos" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="medicoId" value="<%= medico.getId() %>">
+                <span class="botao-lixeira" onclick="this.closest('form').submit()" role="button" tabindex="0" title="Excluir médico" style="color: #e74c3c; cursor: pointer;">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </form>
         </div>
         <%
             }
@@ -149,7 +167,6 @@
     </div>
 </div>
 
-<!-- Modal para inserção/edição -->
 <div class="modal" id="modalForm">
     <div class="modal-content">
         <span class="close" onclick="fecharModal()">&times;</span>

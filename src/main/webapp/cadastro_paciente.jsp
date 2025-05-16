@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <title>Cadastro de Pacientes</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
             background-color: #f4f4f4;
@@ -102,18 +104,27 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        .botao-lixeira {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+        .botao-lixeira:hover {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
-<!-- Navbar original já estilizada no CSS -->
 <div class="navbar">
     <div class="nav-links">
         <a href="admin_dashboard">Home</a>
         <a href="cadastroPacientes">Cadastro de Pacientes</a>
         <a href="cadastroMedicos">Cadastro de Médicos</a>
         <a href="consultarAgenda">Consultar Agenda</a>
-        <a href="#">Ficha Clínica</a>
+        <a href="fichaClinica">Ficha Clínica</a>
         <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
     </div>
 </div>
@@ -121,10 +132,8 @@
 <div class="content">
     <h1>Pacientes Cadastrados</h1>
 
-    <!-- Botão de adicionar -->
     <button class="btn add-btn" onclick="abrirModalInserir()">+ Adicionar Paciente</button>
 
-    <!-- Cards em duas colunas -->
     <div class="cards-container">
         <%
             List<Usuario> pacientes = (List<Usuario>) request.getAttribute("pacientes");
@@ -136,7 +145,16 @@
             <p><strong>Email:</strong> <%= paciente.getEmail() %></p>
             <p><strong>CPF:</strong> <%= paciente.getCpf() %></p>
             <p><strong>Celular:</strong> <%= paciente.getCelular() %></p>
+
             <button class="btn" onclick="abrirModalEditar('<%= paciente.getId() %>', '<%= paciente.getNome() %>', '<%= paciente.getEmail() %>', '<%= paciente.getCpf() %>', '<%= paciente.getCelular() %>')">Editar</button>
+
+            <form action="cadastroPacientes" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="pacienteId" value="<%= paciente.getId() %>">
+                <span class="botao-lixeira" onclick="this.closest('form').submit()" role="button" tabindex="0" title="Excluir paciente" style="color: #e74c3c; cursor: pointer;">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </form>
         </div>
         <%
             }
@@ -149,13 +167,12 @@
     </div>
 </div>
 
-<!-- Modal para inserção/edição -->
 <div class="modal" id="modalForm">
     <div class="modal-content">
         <span class="close" onclick="fecharModal()">&times;</span>
         <h2 id="modalTitle">Cadastrar Paciente</h2>
         <form action="cadastroPacientes" method="post">
-            <input type="hidden" name="pacienteId" id="pacienteId">
+            <input type="hidden" name="PacienteId" id="PacienteId">
             <input type="text" name="userNome" id="userNome" placeholder="Nome" required>
             <input type="email" name="userEmail" id="userEmail" placeholder="Email" required>
             <input type="text" name="userCPF" id="userCPF" placeholder="CPF" required>
@@ -169,7 +186,7 @@
 <script>
     function abrirModalInserir() {
         document.getElementById('modalTitle').innerText = 'Cadastrar Novo Paciente';
-        document.getElementById('pacienteId').value = '';
+        document.getElementById('PacienteId').value = '';
         document.getElementById('userNome').value = '';
         document.getElementById('userEmail').value = '';
         document.getElementById('userCPF').value = '';
@@ -180,7 +197,7 @@
 
     function abrirModalEditar(id, nome, email, cpf, celular) {
         document.getElementById('modalTitle').innerText = 'Editar Paciente';
-        document.getElementById('pacienteId').value = id;
+        document.getElementById('PacienteId').value = id;
         document.getElementById('userNome').value = nome;
         document.getElementById('userEmail').value = email;
         document.getElementById('userCPF').value = cpf;

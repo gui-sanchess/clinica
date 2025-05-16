@@ -18,9 +18,7 @@ public class CadastroMedicosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String realPathBase = request.getServletContext().getRealPath("/");
-
         UsuarioDAO dao = new UsuarioDAO(realPathBase);
         List<Usuario> medicos = dao.listarMedicos();
 
@@ -31,10 +29,16 @@ public class CadastroMedicosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String method = request.getParameter("_method");
+
+        if ("DELETE".equalsIgnoreCase(method)) {
+            doDelete(request, response); // redireciona para doDelete se for delete
+            return;
+        }
+
         String realPathBase = request.getServletContext().getRealPath("/");
         UsuarioDAO dao = new UsuarioDAO(realPathBase);
-
-        String idStr = request.getParameter("medicoId"); // novo parâmetro oculto do formulário
+        String idStr = request.getParameter("medicoId");
         boolean sucesso = false;
 
         try {
@@ -50,12 +54,12 @@ public class CadastroMedicosServlet extends HttpServlet {
                 sucesso = dao.alterarUsuario(id, medico.getNome(), medico.getCpf(), medico.getSenha(),
                         medico.getEmail(), medico.getCelular(), realPathBase);
             } else {
-                medico.setTipo("medico"); // defina o tipo para 'medico'
-                sucesso = dao.inserirUsuario(medico, realPathBase); // você precisará criar esse método no DAO
+                medico.setTipo("medico");
+                sucesso = dao.inserirUsuario(medico, realPathBase);
             }
 
             if (sucesso) {
-                response.sendRedirect("cadastroMedicos"); // volta pra mesma página já com atualização
+                response.sendRedirect("/mensagem_sucesso_consultar.jsp?sucesso=1");
             } else {
                 response.sendRedirect("cadastroMedicos?erro=1");
             }
@@ -63,6 +67,27 @@ public class CadastroMedicosServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("cadastroMedicos?erro=500");
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String idStr = request.getParameter("medicoId");
+        String realPathBase = request.getServletContext().getRealPath("/");
+
+        if (idStr != null && !idStr.isEmpty()) {
+            try {
+                int id = Integer.parseInt(idStr);
+                UsuarioDAO dao = new UsuarioDAO(realPathBase);
+                dao.excluirUsuario(id);
+                response.sendRedirect("cadastroMedicos");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendRedirect("cadastroMedicos?erro=500");
+            }
+        } else {
+            response.sendRedirect("cadastroMedicos?erro=400");
         }
     }
 }
