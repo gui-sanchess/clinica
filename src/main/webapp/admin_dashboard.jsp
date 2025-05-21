@@ -3,30 +3,104 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Administrador</title>
-    <!-- Importa o CSS externo -->
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Painel Administrativo | Clínica Saúde Total</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-gray-50">
 
-    <!-- Menu de Navegação -->
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="admin_dashboard">Home</a>
-            <a href="cadastroPacientes">Cadastro de Pacientes</a>
-            <a href="cadastroMedicos">Cadastro de Médicos</a>
-            <a href="consultarAgenda">Consultar Agenda</a>
-            <a href="fichaClinica">Ficha Clínica</a>
-            <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <div class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col">
+        <div class="p-4 border-b border-gray-200">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-heartbeat text-3xl text-blue-600"></i>
+                <h1 class="text-xl font-bold text-gray-800">Saúde Total</h1>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Painel Administrativo</p>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4">
+            <nav>
+                <ul class="space-y-1">
+                    <li>
+                        <a href="admin_dashboard" class="flex items-center space-x-3 p-3 rounded-lg bg-blue-100">
+                            <i class="fas fa-home text-blue-600"></i><span class="text-black">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cadastroPacientes" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-user-plus text-green-600"></i><span class="text-black">Cadastro de Pacientes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cadastroMedicos" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-user-md text-purple-600"></i><span class="text-black">Cadastro de Médicos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="consultarAgenda" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-calendar-alt text-orange-500"></i><span class="text-black">Consultar Agenda</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="fichaClinica" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-file-medical text-pink-600"></i><span class="text-black">Ficha Clínica</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-gray-200">
+            <a href="${pageContext.request.contextPath}/logout"
+               class="w-full flex items-center justify-center space-x-2 p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
         </div>
     </div>
 
-    <!-- Conteúdo principal -->
-    <div class="content">
-        <h1>Painel do Administrador</h1>
-        <p>Bem-vindo ao painel administrativo. Aqui você poderá gerenciar pacientes e consultas.</p>
+    <!-- Main Content -->
+    <div class="flex-1 overflow-auto">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 p-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800">Dashboard Administrativo</h2>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar..."
+                               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"/>
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="relative">
+                            <i class="fas fa-bell text-gray-500 text-xl cursor-pointer hover:text-gray-700"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                        </div>
+                        <img src="https://edurank.org/assets/img/uni-logos/mackenzie-presbyterian-university-logo.png"
+                             alt="Mackenzie" class="w-8 h-8 rounded-full"/>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo principal -->
+        <main class="p-6">
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Bem-vindo ao Painel Administrativo!</h3>
+                <p class="text-gray-700 mb-2">Aqui você pode:</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Gerenciar pacientes cadastrados.</li>
+                    <li>Gerenciar médicos cadastrados.</li>
+                    <li>Consultar e organizar a agenda de consultas.</li>
+                    <li>Emitir e acompanhar fichas clínicas dos pacientes.</li>
+                </ul>
+                <p class="mt-4 text-gray-600">Selecione uma opção no menu lateral para começar.</p>
+            </div>
+        </main>
     </div>
+</div>
 
 </body>
 </html>
-
