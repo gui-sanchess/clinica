@@ -53,15 +53,20 @@ public class CadastroMedicosServlet extends HttpServlet {
                 int id = Integer.parseInt(idStr);
                 sucesso = dao.alterarUsuario(id, medico.getNome(), medico.getCpf(), medico.getSenha(),
                         medico.getEmail(), medico.getCelular(), realPathBase);
+                if (sucesso) {
+                    response.sendRedirect("/mensagem_sucesso_admin.jsp?sucesso=1");
+                } else {
+                    response.sendRedirect("cadastroMedicos?erro=1");
+                }
+
             } else {
                 medico.setTipo("medico");
                 sucesso = dao.inserirUsuario(medico, realPathBase);
-            }
-
-            if (sucesso) {
-                response.sendRedirect("/mensagem_sucesso_consultar.jsp?sucesso=1");
-            } else {
-                response.sendRedirect("cadastroMedicos?erro=1");
+                if (sucesso) {
+                    response.sendRedirect("/mensagem_sucesso_consultar.jsp?sucesso=1");
+                } else {
+                    response.sendRedirect("cadastroMedicos?erro=1");
+                }
             }
 
         } catch (Exception e) {
