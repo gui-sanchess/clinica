@@ -1,0 +1,278 @@
+/* Arquivo style.css */
+
+/* Reset básico */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 600px;
+}
+
+.content {
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto; /* centraliza */
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-container label {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.form-container input,
+.form-container select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #218838;
+}
+
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    color: #555;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.button, .logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button:hover, .logout-button:hover {
+    background-color: #218838;
+}
+.navbar {
+    background-color: #333;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 170px; /* Espaçamento igual entre as opções — aumente ou diminua como quiser */
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+}
+
+
+.success-message {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: green;
+}
+
+/* Estilo para o título principal */
+.content h1 {
+    font-size: 32px;      /* Título maior */
+    margin-top: 20px;     /* Espaço no topo */
+    margin-bottom: 10px;  /* Espaço entre o título e o parágrafo */
+    text-align: center;   /* Centraliza o título */
+}
+
+/* Estilo para o parágrafo principal */
+.content p {
+    font-size: 18px;       /* Fonte um pouco maior */
+    margin: 170px 60px;     /* Espaço em cima/baixo e maior nas laterais */
+    line-height: 1.6;      /* Altura da linha para melhor leitura */
+    text-align: center;    /* Também centraliza o texto */
+}
+
+ .agenda-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 20px;
+     font-family: Arial, sans-serif;
+     font-size: 15px;
+     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+ }
+
+.agenda-table th,
+.agenda-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.agenda-table th {
+    background-color: #2a7ae2;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.agenda-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.agenda-table tr:hover {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.consulta-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    max-width: 600px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.consulta-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.consulta-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 1.4em;
+
+}
+
+.consulta-card p {
+    margin: 4px 0;
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* CONSULTA EXPIRADA - ACINZENTADA */
+.consulta-card.expirada {
+    background-color: #eeeeee;
+    color: #666;
+    border-left: 5px solid #bbb;
+    opacity: 0.95;
+}
+
+/* BOTÃO DE LIXEIRA */
+.botao-lixeira {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 10px;
+    outline: none;
+    user-select: none;
+}
+
+/* Remove contorno azul ao focar */
+.botao-lixeira:focus,
+.botao-lixeira:active {
+    outline: none;
+}
+
+/* Ícone da lixeira */
+.botao-lixeira i {
+    font-size: 1.2em;
+    color: #888;
+    transition: color 0.2s ease;
+    pointer-events: none;
+}
+
+/* Hover: só o ícone muda */
+.botao-lixeira:hover i {
+    color:#e74c3c;
+}
+/* Hover: só o ícone muda */
+
+/* ANIMAÇÃO DE REMOÇÃO */
+.consulta-removida {
+    opacity: 0;
+    transform: translateX(40px) scale(0.97);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    pointer-events:none;
+}
+
+/* CONTAINER CENTRALIZADO */
+.consultas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top:40px;
+}
