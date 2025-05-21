@@ -38,7 +38,7 @@ public class CadastroPacientesServlet extends HttpServlet {
 
         String realPathBase = request.getServletContext().getRealPath("/");
         UsuarioDAO dao = new UsuarioDAO(realPathBase);
-        String idStr = request.getParameter("PacienteId");
+        String idStr = request.getParameter("pacienteId");
         boolean sucesso = false;
 
         try {

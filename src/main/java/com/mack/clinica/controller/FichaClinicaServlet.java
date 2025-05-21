@@ -48,15 +48,15 @@ public class FichaClinicaServlet extends HttpServlet {
             String idStr = request.getParameter("id_prontuario");
 
             Prontuario prontuario = new Prontuario();
-            prontuario.setPaciente_id(Integer.parseInt(request.getParameter("paciente_id")));
-            prontuario.setProfissional_id(Integer.parseInt(request.getParameter("profissional_id")));
-            prontuario.setDataFormatada(request.getParameter("data"));
+            prontuario.setPaciente_id(Integer.parseInt(request.getParameter("pacienteId")));
+            prontuario.setProfissional_id(Integer.parseInt(request.getParameter("profissionalId")));
+            prontuario.setDataFormatada(request.getParameter("dataFormatada"));
             prontuario.setAnotacoes_medicas(request.getParameter("anotacoes_medicas"));
             prontuario.setPrescricoes(request.getParameter("prescricoes"));
 
             if (idStr != null && !idStr.isEmpty()) {
                 prontuario.setId_prontuario(Integer.parseInt(idStr));
-                //sucesso = prontuarioDAO.atualizarProntuario(prontuario, realPathBase);
+
             } else {
                 sucesso = prontuarioDAO.inserirProntuario(prontuario, realPathBase);
             }
