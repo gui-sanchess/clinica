@@ -54,7 +54,7 @@
 
         <div class="p-4 border-t border-gray-200">
             <a href="${pageContext.request.contextPath}/logout"
-               class="w-full flex items-center justify-center space-x-2 p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+               class="w-full flex items-center justify-center space-x-2 p-3 text-red-600 hover:bg-red-100 rounded-lg">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </a>
