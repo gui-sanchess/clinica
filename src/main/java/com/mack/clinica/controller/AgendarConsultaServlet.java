@@ -1,16 +1,16 @@
 package com.mack.clinica.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import com.mack.clinica.model.AgendarConsultaDAO;
+import com.mack.clinica.model.ConsultasDAO;
 import com.mack.clinica.model.Usuario;
-
+import com.mack.clinica.model.UsuarioDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/agendarConsulta")
 public class AgendarConsultaServlet extends HttpServlet {
@@ -22,9 +22,11 @@ public class AgendarConsultaServlet extends HttpServlet {
         // Obtém o caminho real do projeto
         String realPathBase = request.getServletContext().getRealPath("/");
         // Instancia o DAO passando o caminho
-        AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
+        String basePath = getServletContext().getRealPath("/");
+        ConsultasDAO dao = new ConsultasDAO();
+        UsuarioDAO usu_dao = new UsuarioDAO(basePath);
         // Busca a lista de médicos
-        List<Usuario> medicos = dao.listarMedicos();
+        List<Usuario> medicos = usu_dao.listarMedicos();
         System.out.println("Médicos encontrados: " + (medicos != null ? medicos.size() : 0));
         // Atribui a lista no request para ser usada no JSP
         request.setAttribute("medicos", medicos);
@@ -56,10 +58,10 @@ public class AgendarConsultaServlet extends HttpServlet {
             System.out.println("Profissional ID: " + profissionalId);
             System.out.println("Data e Hora: " + dataHora);
 
-            AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
+            ConsultasDAO dao = new ConsultasDAO();
 
             // Agenda a consulta
-            boolean sucesso = dao.agendarConsulta(pacienteId, profissionalId, dataHora);
+            boolean sucesso = dao.agendarConsulta(pacienteId, profissionalId, dataHora, realPathBase);
             System.out.println("Sucesso: " + sucesso);
             if (sucesso) {
                 // apresenta o pop-up de sucesso e mensagem_sucesso.jsp redireciona para o painel do paciente
