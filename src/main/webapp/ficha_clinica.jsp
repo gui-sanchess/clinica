@@ -105,6 +105,15 @@
                         <p class="text-sm text-gray-600">${prontuario.anotacoes_medicas}</p>
                         <p class="mt-2 text-sm text-gray-700 font-semibold">Prescrições:</p>
                         <p class="text-sm text-gray-600">${prontuario.prescricoes}</p>
+                        <div class="mt-3 flex space-x-2">
+                            <form action="fichaClinica" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="ProntuarioId" value="${prontuario.getId_prontuario()}">
+                                <button type="submit" class="text-red-600 hover:text-red-800 flex items-center">
+                                    <i class="fas fa-trash mr-1"></i> Excluir
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </c:forEach>
             </div>

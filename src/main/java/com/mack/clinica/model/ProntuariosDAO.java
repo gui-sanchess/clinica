@@ -80,4 +80,26 @@ public class ProntuariosDAO {
         }
     }
 
+    public void excluirProntuario(int id_prontuario, String realPathBase) {
+        String sql = "DELETE FROM prontuarios WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id_prontuario);
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                System.err.println("Nenhuma ficha encontrada com o ID: " + id_prontuario);
+            } else {
+                System.out.println("Ficha ID " + id_prontuario + " excluída com sucesso.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir ficha:");
+            e.printStackTrace();
+        }
+    }
+
+
 }

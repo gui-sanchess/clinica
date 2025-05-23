@@ -39,13 +39,19 @@ public class FichaClinicaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String method = request.getParameter("_method");
+
+        if ("DELETE".equalsIgnoreCase(method)) {
+            doDelete(request, response); // redireciona para doDelete se for delete
+            return;
+        }
 
         String realPathBase = request.getServletContext().getRealPath("/");
         ProntuariosDAO prontuarioDAO = new ProntuariosDAO();
         boolean sucesso = false;
 
         try {
-            String idStr = request.getParameter("id_prontuario");
+            String idStr = request.getParameter("ProntuarioId");
 
             Prontuario prontuario = new Prontuario();
             prontuario.setPaciente_id(Integer.parseInt(request.getParameter("pacienteId")));
@@ -72,4 +78,26 @@ public class FichaClinicaServlet extends HttpServlet {
             response.sendRedirect("fichaClinica?erro=500");
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String idStr = request.getParameter("ProntuarioId");
+        String realPathBase = request.getServletContext().getRealPath("/");
+
+        if (idStr != null && !idStr.isEmpty()) {
+            try {
+                int id = Integer.parseInt(idStr);
+                ProntuariosDAO dao = new ProntuariosDAO();
+                dao.excluirProntuario(id, realPathBase);
+                response.sendRedirect("fichaClinica");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendRedirect("fichaClinica?erro=500");
+            }
+        } else {
+            response.sendRedirect("fichaClinica?erro=400");
+        }
+    }
 }
+
