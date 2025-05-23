@@ -185,4 +185,22 @@ public class ConsultasDAO {
         return consultas;
     }
 
+    public boolean agendarConsulta(int pacienteId, int profissionalId, String dataHora, String realPathBase) {
+        String sql = "INSERT INTO consultas (paciente_id, profissional_id, data_hora, status, observacoes) VALUES (?, ?, ?, 'agendada', '')";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, pacienteId);
+            stmt.setInt(2, profissionalId);
+            stmt.setString(3, dataHora);
+            int linhasAfetadas = stmt.executeUpdate();
+            System.out.println("Linhas afetadas: " + linhasAfetadas);
+            return linhasAfetadas > 0;
+        } catch (SQLException e) {
+            System.out.println("entrou aqui");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
