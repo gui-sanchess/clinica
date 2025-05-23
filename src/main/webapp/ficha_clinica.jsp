@@ -98,22 +98,26 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <c:forEach var="prontuario" items="${prontuarios}">
                     <div class="bg-white p-5 rounded-xl shadow-md border border-gray-200">
-                        <h3 class="text-lg font-semibold text-gray-800">${prontuario.paciente.nome}</h3>
-                        <p class="text-sm text-gray-600">Profissional: ${prontuario.medico.nome}</p>
-                        <p class="text-sm text-gray-600">Data: ${prontuario.dataFormatada}</p>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                                <i class="fas fa-file-medical text-red-600"></i>Ficha Clínica
+                            </h3>
+                            <form action="fichaClinica" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="ProntuarioId" value="${prontuario.getId_prontuario()}">
+                                <button type="submit" class="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium"
+                                        title="Excluir">
+                                    <i class="fas fa-trash"></i>Excluir
+                                </button>
+                            </form>
+                        </div>
+                        <p class="text-sm text-gray-700"><strong>Paciente:</strong> ${prontuario.paciente.nome}</p>
+                        <p class="text-sm text-gray-700"><strong>Profissional:</strong> ${prontuario.medico.nome}</p>
+                        <p class="text-sm text-gray-700"><strong>Data:</strong> ${prontuario.dataFormatada}</p>
                         <p class="mt-2 text-sm text-gray-700 font-semibold">Anotações:</p>
                         <p class="text-sm text-gray-600">${prontuario.anotacoes_medicas}</p>
                         <p class="mt-2 text-sm text-gray-700 font-semibold">Prescrições:</p>
                         <p class="text-sm text-gray-600">${prontuario.prescricoes}</p>
-                        <div class="mt-3 flex space-x-2">
-                            <form action="fichaClinica" method="post">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="ProntuarioId" value="${prontuario.getId_prontuario()}">
-                                <button type="submit" class="text-red-600 hover:text-red-800 flex items-center">
-                                    <i class="fas fa-trash mr-1"></i> Excluir
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 </c:forEach>
             </div>
